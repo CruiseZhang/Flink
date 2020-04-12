@@ -15,7 +15,7 @@ object FlinkStreamWordCount {
     //2、导入隐式转换
     import org.apache.flink.streaming.api.scala._
     //3、读取数据,读取sock流中的数据
-    val stream: DataStream[String] = streamEnv.socketTextStream("hadoop101",8888) //DataStream ==> spark中Dstream
+    val stream: DataStream[String] = streamEnv.socketTextStream("hadoop101",8888) //DataStream和spark中Dstream类似
 
     //4、转换和处理数据
     val result: DataStream[(String, Int)] = stream.flatMap(_.split(" "))
