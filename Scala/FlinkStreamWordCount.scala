@@ -3,7 +3,7 @@ package com.bjsxt.flink
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 
 /**
-  * Flink流计算的WordCount
+  * 基于Flink流计算的WordCount案例
   */
 object FlinkStreamWordCount {
 
