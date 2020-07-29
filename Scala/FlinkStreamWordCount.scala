@@ -3,8 +3,8 @@ package com.bjsxt.flink
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 
 /**
- * Flink流计算的WordCount
- */
+  * Flink流计算的WordCount
+  */
 object FlinkStreamWordCount {
 
   def main(args: Array[String]): Unit = {
@@ -13,7 +13,7 @@ object FlinkStreamWordCount {
     //修改并行度
     streamEnv.setParallelism(1) //默认所有算子的并行度为1
     //2、导入隐式转换
-    import org.apache.flink.streaming.api.scala._  //_是导入scala包下的所有对象
+    import org.apache.flink.streaming.api.scala._ //_是导入scala包下的所有对象
     //3、读取数据,读取sock流中的数据
     val stream: DataStream[String] = streamEnv.socketTextStream("hadoop101",8888) //DataStream和spark中Dstream类似
 
@@ -21,7 +21,7 @@ object FlinkStreamWordCount {
     val result: DataStream[(String, Int)] = stream.flatMap(_.split(" "))
       .map((_, 1)).setParallelism(2)
       .keyBy(0)//分组算子: 0 或者 1 代表下标。前面的DataStream[二元组] , 0代表单词 ，1代表单词出现的次数
-      .sum(1).setParallelism(2) //聚会累加算子。此处对1进行累加，即对单词出现的次数进行累加
+      .sum(1).setParallelism(2) //聚合累加算子。此处对1进行累加，即对单词出现的次数进行累加
 
     //5、打印结果
     result.print("结果").setParallelism(1)
